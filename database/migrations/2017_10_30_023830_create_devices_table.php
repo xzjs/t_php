@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClocksTable extends Migration
+class CreateDevicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreateClocksTable extends Migration
      */
     public function up()
     {
-        Schema::create('clocks', function (Blueprint $table) {
+        Schema::create('devices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('repeat_type');
-            $table->integer('duration');
-            $table->boolean('delete');//响铃后是否删除
-            $table->string('remark');
-            $table->dateTime('time');
-            $table->integer('device_id');
+            $table->integer('user_id');
+            $table->string('no');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreateClocksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clocks');
+        Schema::dropIfExists('devices');
     }
 }

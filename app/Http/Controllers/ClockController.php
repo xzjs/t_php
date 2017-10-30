@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Device;
-use App\User;
+use App\Clock;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 
-class UserController extends Controller
+class ClockController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $mac = Input::get('mac');
-        if (!$mac . isEmptyOrNullString()) {
-
-        }
+        //
     }
 
     /**
@@ -35,32 +30,36 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        try {
-            $user = new User;
-            $user->name = $request->name;
-            $user->open_id = $request->open_id;
-            $user->save();
-            $device = Device::where('mac', $request->mac)->first();
-            $device->user_id = $user->id;
-            $device->save();
-            $result['status'] = true;
+        try{
+            $clock=new Clock();
+            $clock->repeat_type=$request->repeat_type;
+            $clock->duration=$request->duration;
+            $clock->delete=$request->delete;
+            $clock->remark=$request->remark;
+            $clock->time=$request->time;
+            $clock->device_id=$request->device_id;
+            $clock->save();
+            $clock->rings()->attach($request->rings);
+            $clock->save();
+            $result['status']=true;
             return response()->json($result);
-        } catch (\Exception $exception) {
-            $result['status'] = false;
-            $result['message'] = $exception->getMessage();
-            return response(json_encode($result));
+        }catch (\Exception $exception){
+            $result['status']=false;
+            $result['message']=$exception->getMessage();
+            return response()->json($result);
         }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -71,7 +70,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -82,8 +81,8 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -94,7 +93,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

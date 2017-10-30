@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Device;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class UserController extends Controller
 {
@@ -14,7 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $mac=Input::get('mac');
+        if(!$mac.isEmptyOrNullString()){
+
+        }
     }
 
     /**
@@ -35,10 +40,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user=new User;
-        $user->name=$request->name;
-        $user->open_id=$request->open_id;
-        $user->save();
+        try{
+            $user=new User;
+            $user->name=$request->name;
+            $user->open_id=$request->open_id;
+            $user->save();
+            $device=Device::where('mac',$request->mac)->first();
+            $device->user_id=$user->id;
+            $device->save();
+            return response('true');
+        }catch(\Exception $exception){
+            return response($exception->getMessage());
+        }
     }
 
     /**

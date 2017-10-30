@@ -16,7 +16,7 @@ class CreateDevicesTable extends Migration
         Schema::create('devices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->string('no');
+            $table->string('no')->unique();
             $table->timestamps();
         });
     }

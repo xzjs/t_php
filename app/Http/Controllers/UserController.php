@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -34,7 +35,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user=new User;
+        $user->name=$request->name;
+        $user->open_id=$request->open_id;
+        $user->save();
     }
 
     /**

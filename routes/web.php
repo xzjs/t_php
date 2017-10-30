@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::resource('users', 'UserController');
 Route::resource('clocks', 'ClockController');
+Route::resource('rings', 'RingController');

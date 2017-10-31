@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ring;
 use Illuminate\Http\Request;
 
 class RingController extends Controller
@@ -13,7 +14,16 @@ class RingController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $rings=Ring::all();
+            $result['status'] = true;
+            $result['data']=$rings;
+            return response()->json($result);
+        } catch (\Exception $exception) {
+            $result['status'] = false;
+            $result['message'] = $exception->getMessage();
+            return response()->json($result);
+        }
     }
 
     /**

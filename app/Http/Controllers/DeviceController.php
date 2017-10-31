@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Device;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-class UserController extends Controller
+class DeviceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $mac = Input::get('mac');
-        if (!$mac . isEmptyOrNullString()) {
-
-        }
+        //
     }
 
     /**
@@ -41,17 +37,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         try {
-            $user = new User;
-            $user->name = $request->name;
-            $user->open_id = $request->open_id;
-            $user->save();
+            $device = new Device();
+            $device->mac = $request->mac;
+            $device->type = $request->type;
+            //TODO 二维码的网址需要修改
+            QrCode::format('png')
+                ->size(200)
+                ->merge('/public/qrcodes/logo.jpg', .15)
+                ->generate("http://www.baidu.com?mac=$request->mac", public_path("qrcodes/$request->mac.png"));
+            $device->qr = $request->mac . '.png';
+            $device->save();
             $result['status'] = true;
-            $result['data']=$user->id;
+            $result['data']=$device->id;
             return response()->json($result);
         } catch (\Exception $exception) {
             $result['status'] = false;
             $result['message'] = $exception->getMessage();
-            return response(json_encode($result));
+            return response()->json($result);
         }
     }
 
@@ -86,7 +88,16 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        try {
+            $device = Device::findOrFail($id);
+            $device->user_id = $request->user_id;
+            $result['status'] = true;
+            return response()->json($result);
+        } catch (\Exception $exception) {
+            $result['status'] = false;
+            $result['message'] = $exception->getMessage();
+            return response()->json($result);
+        }
     }
 
     /**

@@ -17,6 +17,8 @@ class CreateDevicesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->nullable();
             $table->string('mac')->unique();
+            $table->integer('type');//0.闹钟;1.手机
+            $table->string('qr');
             $table->timestamps();
         });
     }

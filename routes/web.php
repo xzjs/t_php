@@ -18,3 +18,4 @@ Route::resource('users', 'UserController');
 Route::resource('clocks', 'ClockController');
 Route::resource('rings', 'RingController');
 Route::resource('devices', 'DeviceController');
+Route::resource('weathers', 'WeatherController');

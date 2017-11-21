@@ -6,25 +6,30 @@
                 <img src="/images/avatar.jpg" alt="头像">
             </span>
             <span>李叔叔</span>
-            <input type="button" value="删除">
+            <mt-button size="small" type="danger">删除</mt-button>
         </li>
         <li>
             <span class="avatar">
                 <img src="/images/avatar.jpg" alt="头像">
             </span>
             <span>李叔叔</span>
-            <input type="button" value="删除">
+            <mt-button size="small" type="danger">删除</mt-button>
         </li>
     </ul>
 </div>
 </template>
 
 <script>
+import Button from 'mint-ui'
+
 export default {
   data(){
       return {
 
       }
+  },
+  components:{
+      Button
   }
 }
 </script>

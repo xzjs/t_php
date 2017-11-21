@@ -1,15 +1,34 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Example from '../components/Example.vue';
+// import Example from '../components/Example.vue';
+import Index from '../pages/index';
+import ClockPage from '../pages/clockPage'
+import TimePage from '../pages/timePage'
+import SharingPage from '../pages/sharingPage'
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
         {
-            name: "Example",
+            name: "index",
             path: '/',
-            component: Example
+            component: Index
+        },
+        {
+            name: "ClockPage",
+            path: '/clockPage',
+            component: ClockPage
+        },
+        {
+            name: "TimePage",
+            path: '/timePage',
+            component: TimePage
+        },
+        {
+            name: "SharingPage",
+            path: '/sharingPage',
+            component: SharingPage
         }
     ]
 })

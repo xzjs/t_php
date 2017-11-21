@@ -71,14 +71,11 @@
       <mt-cell :title="'显示第二天天气'">
         <mt-switch v-model="value6" @change="handleChange"></mt-switch>
       </mt-cell>
-      <mt-cell :title="'显示第二天天气'">
+      <mt-cell :title="'显示第三天天气'">
         <mt-switch v-model="value7" @change="handleChange"></mt-switch>
       </mt-cell>
-      <mt-cell :title="'显示第三天天气'">
-        <mt-switch v-model="value8" @change="handleChange"></mt-switch>
-      </mt-cell>
       <mt-cell :title="'显示闹钟组数'">
-        <mt-switch v-model="value9" @change="handleChange"></mt-switch>
+        <mt-switch v-model="value8" @change="handleChange"></mt-switch>
       </mt-cell>
       
       
@@ -104,8 +101,7 @@ export default {
       value5:true,
       value6:true,
       value7:true,
-      value8:true,
-      value9:true
+      value8:true
     }
   },
   method:{

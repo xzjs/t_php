@@ -4,6 +4,7 @@
 /public/fonts
 /public/js
 /public/qrcodes
+/public/css
 /storage/*.key
 /vendor
 /.idea

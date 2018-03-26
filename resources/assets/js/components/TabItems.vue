@@ -152,8 +152,8 @@
 
 <template>
     <a class="m-tabbar-item" :class="{'is-active':isActive}" @click="$parent.$emit('input',id)">
-        <span class="m-tabbar-item-icon" v-show="!isActive"><slot name="icon-normal"></slot></span>
-        <span class="m-tabbar-item-icon" v-show="isActive"><slot name="icon-active"></slot></span>
+        <!-- <span class="m-tabbar-item-icon" v-show="!isActive"><slot name="icon-normal"></slot></span>
+        <span class="m-tabbar-item-icon" v-show="isActive"><slot name="icon-active"></slot></span> -->
         <span class="m-tabbar-item-text"><slot></slot></span>
     </a>
 </template>
@@ -204,11 +204,21 @@
   height: 28px;
 }
 .m-tabbar-item .m-tabbar-item-text {
-  display: block;
+  /* display: block; */
   font-size: 10px;
-  color: #949494;
+  color:#deeff2;
+  font-size: 16px;
+}
+.m-tabbar-item-text{
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 .m-tabbar-item.is-active .m-tabbar-item-text {
-  color: #42bd56;
+  color: #fff;
+  /* border-bottom-color: rgb(204,204,204);
+  border-bottom-width: 1px;
+  border-bottom-style: solid; */
+  border-bottom: 4px solid #ffffff;
 }
 </style>

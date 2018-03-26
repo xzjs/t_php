@@ -1,7 +1,8 @@
 <template>
   <div id="screen">
+        <div style="width:100%;height:51px;"></div>
         <div class="screenLeft">
-                <span class="date">{{date}}</span>
+                <!-- <span class="date">{{date}}</span>
                 <span class="time">{{time}}</span>
 
                 <div class="clockTimeDiv">
@@ -17,21 +18,38 @@
                         <img src="/images/clock_icon.png" alt="">
                         <span>10:00</span>
                     </p>
+                </div> -->
+                <span class="date" v-show="childMsg[1]">{{date}}</span>
+                <span class="time" v-show="childMsg[0]">{{time}}</span>
+
+                <div class="clockTimeDiv" v-show="childMsg[6]">
+                    <p class="clockItem">
+                        <img src="/images/clock_icon.png" alt="">
+                        <span>08:00</span>
+                    </p>
+                    <p class="clockItem">
+                        <img src="/images/clock_icon.png" alt="">
+                        <span>09:00</span>
+                    </p>
+                    <p class="clockItem">
+                        <img src="/images/clock_icon.png" alt="">
+                        <span>10:00</span>
+                    </p>
                 </div>
         </div>
         <div class="screenRight">
-            <div class="todayWeather">
+            <div class="todayWeather" v-show="childMsg[3]">
                 <div style="float:left;width:40%;height:100%;display:flex;justify-content:flex-end;align-items:center;">
                     <img src="/images/sun.svg" alt="" width="60px" height="60px">
                 </div>
                 <div class="todayWeatherDetail">   
                     <span >晴</span>
-                    <span>14~26℃</span>
+                    <span>11~26℃</span>
                     <span>南风1~2级</span>
                 </div>
             </div>
             <div class="nextWeather">
-                <div class="tmrWeather">
+                <div class="tmrWeather"  v-show="childMsg[4]">
                     <img src="/images/sun.svg" alt="" width="24px" height="24px">
                     <div style="position:absolute;bottom:0;">
                         <!-- <span>明天</span> -->
@@ -39,7 +57,7 @@
                         <span>14~26℃</span>
                     </div>
                 </div>
-                <div class="afterTmrWeather">
+                <div class="afterTmrWeather"  v-show="childMsg[5]">
                     <img src="/images/sun.svg" alt="" width="24px" height="24px">
                     <div style="position:absolute;bottom:0;">
                         <!-- <span>明天</span> -->
@@ -57,6 +75,9 @@
 <<script>
 export default {
   name:'Screen',
+  props:{
+      childMsg:Array
+  },
   data(){
       return{
           time:'',
@@ -89,14 +110,18 @@ export default {
 <style scoped>
 #screen {
   font-family: 'Share Tech Mono', monospace;
-  background-color: #000;
+  /* background-color: #000; */
+  background:-webkit-gradient(linear, 0 0, 0 bottom, from(#319da7), to(rgba(104,226, 201, 1)));
+  box-shadow:0px 2px 20px #378c7d;
   color: #ffffff;
   text-align: center;
-  position: relative;
+  position: fixed;
+  top: 0;
   left: 0;
   width:100%;
-  height: 10rem;
-  margin-top: 51px;
+  height: 161px;
+  z-index: 99;
+  /* margin-top: 51px; */
   /* -webkit-transform: translate(-30%);
           transform: translate(-30%); */
   color: #daf6ff;
@@ -110,19 +135,26 @@ p{
 #screen .time{
     display: inline-block;
     position: absolute;
-    left: 0.5rem;
-    bottom: 2.5rem;
+    /* left: 1px; */
+    /* bottom: 2.5rem; */
     letter-spacing: 0.05rem;
-    font-size: 3rem;
+    font-size: 2.5rem;
     padding: 5px 0;
+    top: 50%;
+    /* left: 50%; */
+    transform: translateY(-50%);
 }
 .date{
-    margin-left: 4px;
+    margin-left: 6px;
 }
 .screenLeft{
+    position: relative;
     width: 55%;
-    height: 100%;
+    height: 110px;
     float: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .screenLeft:after{
     content: '';
@@ -131,7 +163,7 @@ p{
 }
 .screenRight{
     width: 45%;
-    height: 100%;
+    height: 110px;
     float: right;
     font-size: .2rem;
 }

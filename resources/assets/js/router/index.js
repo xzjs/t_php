@@ -5,6 +5,7 @@ import Index from '../pages/index';
 import ClockPage from '../pages/clockPage'
 import TimePage from '../pages/timePage'
 import SharingPage from '../pages/sharingPage'
+import AddClock from '../pages/addClock'
 
 Vue.use(VueRouter);
 
@@ -29,6 +30,11 @@ export default new VueRouter({
             name: "SharingPage",
             path: '/sharingPage',
             component: SharingPage
+        },
+        {
+            name: "AddClock",
+            path: '/addClock',
+            component: AddClock
         }
     ]
 })

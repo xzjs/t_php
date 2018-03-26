@@ -51,17 +51,17 @@
         </div>
       </TabItems> -->
    
-      <screen></screen>
+      <screen :child-msg="[value1,value2,value4,value5,value6,value7,value8]"></screen>
       
-      <mt-cell :title="'显示时间'">
+      <mt-cell :title="'显示时间'" style="position:relative;margin-top:160px;">
         <mt-switch v-model="value1" @change="handleChange"></mt-switch>
       </mt-cell>
       <mt-cell :title="'显示日期'">
         <mt-switch v-model="value2" @change="handleChange"></mt-switch>
       </mt-cell>
-      <mt-cell :title="'显示星期'">
+      <!-- <mt-cell :title="'显示星期'">
         <mt-switch v-model="value3" @change="handleChange"></mt-switch>
-      </mt-cell>
+      </mt-cell> -->
       <mt-cell :title="'显示天气地点'">
         <mt-switch v-model="value4" @change="handleChange"></mt-switch>
       </mt-cell>
@@ -104,7 +104,7 @@ export default {
       value8:true
     }
   },
-  method:{
+  methods:{
     handleChange(event){
       console.log(event);
     }

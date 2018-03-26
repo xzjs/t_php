@@ -24,7 +24,8 @@ export default {
     width: 100%;
     overflow: hidden;
     height: 50px;
-    background: #fff;
-    border-bottom: 1px solid #e4e4e4;
+    background:rgba(255, 255, 255, 0.15);
+    z-index: 99;
+    /* border-bottom: 1px solid #e4e4e4; */
 }
 </style>

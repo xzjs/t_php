@@ -66,7 +66,7 @@ class WeatherController extends Controller
             }
             $context = new \ZMQContext();
             $requester = new \ZMQSocket($context, \ZMQ::SOCKET_REQ);
-            $requester->connect("tcp://111.230.21.59:5556");
+            $requester->connect("tcp://127.0.0.1:5556");
             $message['city'] = $id;
             $message['info'] = ['today'];
             $requester->send(json_encode($message));

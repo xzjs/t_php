@@ -41,10 +41,11 @@ class DeviceController extends Controller
             $device->mac = $request->mac;
             $device->type = $request->type;
             //TODO 二维码的网址需要修改
-            QrCode::format('png')
-                ->size(200)
-                ->merge('/public/qrcodes/logo.jpg', .15)
-                ->generate("http://www.baidu.com?mac=$request->mac", public_path("qrcodes/$request->mac.png"));
+//            QrCode::format('png')
+//                ->size(200)
+//                ->merge('/public/qrcodes/logo.jpg', .15)
+//                ->generate("http://www.baidu.com?mac=$request->mac", public_path("qrcodes/$request->mac.png"));
+
             $device->qr = $request->mac . '.png';
             $device->save();
             $result['status'] = true;

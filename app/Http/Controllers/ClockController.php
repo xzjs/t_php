@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Clock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 class ClockController extends Controller
 {
@@ -14,7 +15,22 @@ class ClockController extends Controller
      */
     public function index()
     {
-        //
+        $result['status'] = true;
+        try {
+            $device_id = Input::get('device_id');
+            if (isset($device_id)) {
+                $result = Clock::where('device_id', $device_id)->get();
+            } else {
+                $result = [];
+            }
+        } catch (\Exception $exception) {
+            $result = array(
+                "status" => false,
+                "message" => $exception->getMessage()
+            );
+        } finally {
+            return response()->json($result);
+        }
     }
 
     /**
@@ -30,27 +46,27 @@ class ClockController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        try{
-            $clock=new Clock();
-            $clock->repeat_type=$request->repeat_type;
-            $clock->duration=$request->duration;
-            $clock->delete=$request->delete;
-            $clock->remark=$request->remark;
-            $clock->time=$request->time;
-            $clock->device_id=$request->device_id;
+        try {
+            $clock = new Clock();
+            $clock->repeat_type = $request->repeat_type;
+            $clock->duration = $request->duration;
+            $clock->delete = $request->delete;
+            $clock->remark = $request->remark;
+            $clock->time = $request->time;
+            $clock->device_id = $request->device_id;
             $clock->save();
             $clock->rings()->attach($request->rings);
             $clock->save();
-            $result['status']=true;
+            $result['status'] = true;
             return response()->json($result);
-        }catch (\Exception $exception){
-            $result['status']=false;
-            $result['message']=$exception->getMessage();
+        } catch (\Exception $exception) {
+            $result['status'] = false;
+            $result['message'] = $exception->getMessage();
             return response()->json($result);
         }
 
@@ -59,7 +75,7 @@ class ClockController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -70,7 +86,7 @@ class ClockController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -81,8 +97,8 @@ class ClockController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -93,7 +109,7 @@ class ClockController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

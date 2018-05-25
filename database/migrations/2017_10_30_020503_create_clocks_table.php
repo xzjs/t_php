@@ -17,7 +17,7 @@ class CreateClocksTable extends Migration
             $table->increments('id');
             $table->string('repeat_type');
             $table->integer('duration');
-            $table->boolean('delete');//响铃后是否删除
+            $table->integer('delete');//响铃后是否删除
             $table->string('remark');
             $table->dateTime('time');
             $table->integer('device_id');
